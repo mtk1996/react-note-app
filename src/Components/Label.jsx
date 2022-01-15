@@ -25,7 +25,7 @@ export default function Label() {
         setLoader(false);
       }
     );
-  }, []);
+  });
   const renderAll = () => {
     setSelectedLabel(null);
     push("/");

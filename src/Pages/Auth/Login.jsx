@@ -14,7 +14,7 @@ export default function Login() {
       message.setMessage({ type: "error", message: "You Already Login!" });
       history.push("/");
     }
-  }, []);
+  });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

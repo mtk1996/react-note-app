@@ -21,7 +21,7 @@ function All() {
         setPageLoader(false);
       }
     );
-  }, []);
+  });
 
   const renderNextPage = () => {
     setLoadMoreLoader(true);

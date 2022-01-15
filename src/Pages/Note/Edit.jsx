@@ -33,7 +33,7 @@ function Edit() {
       setPageLoader(false);
     });
     return true;
-  }, []);
+  });
   const updateNote = () => {
     setLoader(true);
     const frmData = new FormData();
