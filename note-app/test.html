@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Summernote Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="src/styles.css" />
+</head>
+
+<body>
+
+    <body>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div style="position: relative;">
+                        <div id="summernote">
+                            <h2>Header 2</h2>
+                            <h3>Header 3</h3>
+                            <blockquote>blockquote with a <a href="#">Link</a> inside it.</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>
+    <script src='src/summernote-test.js'></script>
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                styleTags: ['h2', 'h3', 'p', 'blockquote'],
+                toolbar: [
+                    // [groupName, [list of button]]
+                    ['block', ['style']],
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['lists', ['ul', 'ol']],
+                    ['extras', ['link', 'codeview', 'table', 'picture']]
+                ],
+                onpaste: function (e) {
+                    var thisNote = $(this);
+                    var updatePastedText = function (someNote) {
+                        var original = someNote.code();
+                        var cleaned = CleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
+                        someNote.code('').html(cleaned); //this sets the displayed content editor to the cleaned pasted code.
+                    };
+                    setTimeout(function () {
+                        //this kinda sucks, but if you don't do a setTimeout, 
+                        //the function is called before the text is really pasted.
+                        updatePastedText(thisNote);
+                    }, 10);
+
+
+                }
+            });
+            $('.note-dropdown-menu > .dropdown-item > blockquote').text('');
+            $('.note-dropdown-menu > .dropdown-item > h2').text('Large');
+            $('.note-dropdown-menu > .dropdown-item > h3').text('Medium');
+
+
+            // $('.note-editable').on('paste', function (e) {
+            //     console.log(navigator.clipboard.read());
+            // });
+
+            var text = $('#summernote').text();
+            text = text.replace(/\s\s+/g, ' ');
+            // console.log(text);
+        });
+    </script>
+</body>
+
+</html>
